@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>הצהרת נגישות | פ.פארטום</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { sans: ['Inter', 'sans-serif'] },
+          colors: {
+            brand: {
+              50:  '#fdf2f5', 100: '#fce4ec', 200: '#f8c5d5',
+              300: '#f29ab6', 400: '#e96d94', 500: '#d94b77',
+              600: '#c2305e', 700: '#a3234d', 800: '#871e40', 900: '#6e1a37',
+            }
+          }
+        },
+      },
+    }
+  </script>
+  <style>body { font-family: 'Inter', sans-serif; }</style>
+</head>
+<body class="bg-white text-gray-900 antialiased">
+
+  <!-- Navbar -->
+  <nav class="sticky top-0 z-50 bg-white/90 backdrop-blur-sm border-b border-gray-100">
+    <div class="max-w-4xl mx-auto px-6 py-4 flex items-center justify-between">
+      <a href="index.html" class="flex items-center gap-2 text-gray-500 hover:text-brand-600 transition-colors text-sm">
+        <i data-lucide="arrow-right" class="w-4 h-4"></i>
+        חזרה לאתר
+      </a>
+      <span class="text-base font-semibold text-gray-900">פ.פארטום</span>
+    </div>
+  </nav>
+
+  <!-- Content -->
+  <main class="max-w-4xl mx-auto px-6 py-16">
+
+    <!-- Header -->
+    <div class="flex items-center gap-4 mb-10">
+      <div class="w-12 h-12 bg-brand-100 rounded-2xl flex items-center justify-center flex-shrink-0">
+        <i data-lucide="accessibility" class="w-6 h-6 text-brand-600"></i>
+      </div>
+      <div>
+        <h1 class="text-3xl font-bold text-gray-900">הצהרת נגישות</h1>
+        <p class="text-sm text-gray-400 mt-1">עדכון אחרון: מרץ 2025</p>
+      </div>
+    </div>
+
+    <!-- Commitment -->
+    <section class="mb-10">
+      <div class="bg-brand-50 border border-brand-200 rounded-2xl px-6 py-5 text-sm text-gray-700 leading-relaxed">
+        חברת <strong class="text-gray-900">ויטליטי החיוניות שבטבע בע"מ</strong> פועלת להנגשת שירותיה לאנשים עם מוגבלות בהתאם לתקנות שוויון זכויות לאנשים עם מוגבלות (התאמות נגישות לשירות), התשע"ג–2013.
+      </div>
+    </section>
+
+    <!-- Status -->
+    <section class="mb-10">
+      <h2 class="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
+        <i data-lucide="check-circle" class="w-5 h-5 text-brand-500"></i>
+        סטטוס נגישות
+      </h2>
+      <div class="text-gray-600 text-sm leading-relaxed space-y-3 pr-7">
+        <p>האתר מונגש ברמת <strong class="text-gray-800">AA</strong> לפי תקן <strong class="text-gray-800">ת"י 5568</strong> (WCAG 2.1).</p>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-4">
+          <div class="flex items-center gap-3 border border-gray-100 rounded-xl px-4 py-3">
+            <i data-lucide="keyboard" class="w-4 h-4 text-brand-400 flex-shrink-0"></i>
+            <span class="text-sm text-gray-600">ניווט מלא באמצעות מקלדת</span>
+          </div>
+          <div class="flex items-center gap-3 border border-gray-100 rounded-xl px-4 py-3">
+            <i data-lucide="monitor-speaker" class="w-4 h-4 text-brand-400 flex-shrink-0"></i>
+            <span class="text-sm text-gray-600">תאימות לקוראי מסך</span>
+          </div>
+          <div class="flex items-center gap-3 border border-gray-100 rounded-xl px-4 py-3">
+            <i data-lucide="contrast" class="w-4 h-4 text-brand-400 flex-shrink-0"></i>
+            <span class="text-sm text-gray-600">ניגודיות צבע תקנית</span>
+          </div>
+          <div class="flex items-center gap-3 border border-gray-100 rounded-xl px-4 py-3">
+            <i data-lucide="smartphone" class="w-4 h-4 text-brand-400 flex-shrink-0"></i>
+            <span class="text-sm text-gray-600">תמיכה במסכי מגע</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="border-t border-gray-100 mb-10"></div>
+
+    <!-- Contact -->
+    <section class="mb-16">
+      <h2 class="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
+        <i data-lucide="message-circle" class="w-5 h-5 text-brand-500"></i>
+        פניות בנושא נגישות
+      </h2>
+      <div class="text-gray-600 text-sm leading-relaxed space-y-4 pr-7">
+        <p>ניתן לפנות לרכז הנגישות של החברה:</p>
+        <div class="space-y-3">
+          <a href="tel:1800282444"
+             class="flex items-center gap-3 border border-brand-200 bg-brand-50 rounded-xl px-5 py-3.5 hover:bg-brand-100 transition-colors">
+            <i data-lucide="phone" class="w-4 h-4 text-brand-600 flex-shrink-0"></i>
+            <span class="text-brand-700 font-medium">1-800-282-444</span>
+          </a>
+          <a href="mailto:asafla@vitality-israel.co.il"
+             class="flex items-center gap-3 border border-brand-200 bg-brand-50 rounded-xl px-5 py-3.5 hover:bg-brand-100 transition-colors">
+            <i data-lucide="mail" class="w-4 h-4 text-brand-600 flex-shrink-0"></i>
+            <span class="text-brand-700 font-medium">asafla@vitality-israel.co.il</span>
+          </a>
+        </div>
+        <div class="bg-gray-50 border border-gray-100 rounded-xl px-5 py-4 mt-4">
+          <p class="text-gray-600 text-sm">
+            <i data-lucide="info" class="w-4 h-4 inline-block text-gray-400 mb-0.5 ml-1"></i>
+            במידה ונתקלתם בבעיית נגישות — אנא צרו עמנו קשר וננסה לסייע בהקדם.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <a href="index.html" class="inline-flex items-center gap-2 bg-brand-700 text-white text-sm font-medium px-5 py-2.5 rounded-xl hover:bg-brand-800 transition-colors">
+      <i data-lucide="arrow-right" class="w-4 h-4"></i>
+      חזרה לאתר
+    </a>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="border-t border-gray-100 mt-8">
+    <div class="max-w-4xl mx-auto px-6 py-8 text-center">
+      <p class="text-xs text-gray-400">מספר אישור בפנקס אמ"ר: 14560418 · יש לעיין בעלון לצרכן לפני השימוש.</p>
+      <p class="text-xs text-gray-300 mt-1">© 2025 ויטליטי ישראל · כל הזכויות שמורות</p>
+    </div>
+  </footer>
+
+  <script>lucide.createIcons();</script>
+</body>
+</html>

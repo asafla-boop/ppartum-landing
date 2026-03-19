@@ -15,6 +15,20 @@
       theme: {
         extend: {
           fontFamily: { sans: ['Inter', 'sans-serif'] },
+          colors: {
+            brand: {
+              50:  '#fdf2f5',
+              100: '#fce4ec',
+              200: '#f8c5d5',
+              300: '#f29ab6',
+              400: '#e96d94',
+              500: '#d94b77',
+              600: '#c2305e',
+              700: '#a3234d',
+              800: '#871e40',
+              900: '#6e1a37',
+            }
+          }
         },
       },
     }
@@ -24,7 +38,7 @@
 
     .reveal {
       opacity: 0;
-      transform: translateY(28px);
+      transform: translateY(24px);
       transition: opacity 0.65s ease, transform 0.65s ease;
     }
     .reveal.visible {
@@ -35,39 +49,108 @@
     .delay-2 { transition-delay: 0.24s; }
     .delay-3 { transition-delay: 0.36s; }
 
-    /* Video full-width responsive */
+    /* Gallery main image fade */
+    #mainImg {
+      transition: opacity 0.25s ease;
+    }
+    #mainImg.fade {
+      opacity: 0;
+    }
+
+    /* Thumbnail active ring */
+    .thumb-btn.active {
+      outline: 2px solid #d94b77;
+      outline-offset: 2px;
+    }
+
     video { display: block; width: 100%; }
+
+    /* FAQ accordion */
+    .faq-panel {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.35s ease;
+    }
+    .faq-icon {
+      transition: transform 0.3s ease;
+      flex-shrink: 0;
+    }
+    .faq-btn.open .faq-icon {
+      transform: rotate(180deg);
+    }
   </style>
 </head>
 <body class="bg-white text-gray-900 antialiased">
 
   <!-- ─── Navbar ─────────────────────────────────────────────── -->
-  <nav class="sticky top-0 z-50 bg-white/90 backdrop-blur-sm border-b border-gray-100">
-    <div class="max-w-5xl mx-auto px-6 py-4 flex items-center justify-between">
-      <span class="text-base font-semibold tracking-tight text-gray-900">פ.פארטום</span>
-      <a href="https://www.vitality-israel.co.il/product-page/%D7%A4%D7%A4%D7%90%D7%A8%D7%98%D7%95%D7%9D-%D7%A4%D7%A4%D7%A8%D7%99%D7%99-%D7%9C%D7%90%D7%97%D7%A8-%D7%9C%D7%99%D7%93%D7%94"
+  <nav class="sticky top-0 z-50 bg-white/95 backdrop-blur-sm border-b border-brand-100">
+    <div class="max-w-5xl mx-auto px-6 py-4 flex items-center justify-between gap-4">
+
+      <!-- Right (RTL start): product name + logo -->
+      <div class="flex items-center gap-5">
+
+        <!-- Product name — large & prominent -->
+        <span class="text-2xl font-bold tracking-tight text-brand-700">פ.פארטום</span>
+
+        <!-- Divider -->
+        <div class="h-10 w-px bg-brand-200 hidden sm:block"></div>
+
+        <!-- Vitality logo — recolored to brand pink via CSS filter -->
+        <img src="vitality-logo.jpg"
+             alt="ויטליטי – החיוניות שבטבע"
+             class="h-14 w-auto flex-shrink-0 hidden sm:block"
+             style="filter: grayscale(100%) sepia(100%) hue-rotate(295deg) saturate(280%) brightness(105%);" />
+      </div>
+
+      <!-- Left (RTL end): CTA -->
+      <a href="https://www.vitality-israel.co.il/product-page/%D7%A4%D7%A4%D7%90%D7%A8%D7%98%D7%95%D7%9D-%D7%A1%D7%A4%D7%A8%D7%99%D7%99-%D7%9C%D7%90%D7%97%D7%A8-%D7%9C%D7%99%D7%93%D7%94"
          target="_blank"
-         class="inline-flex items-center gap-2 bg-stone-800 text-white text-sm font-medium px-4 py-2 rounded-xl hover:bg-stone-700 transition-colors">
+         class="inline-flex items-center gap-2 bg-brand-600 text-white text-sm font-semibold px-4 py-2 rounded-xl hover:bg-brand-700 transition-colors flex-shrink-0">
         לקניה
         <i data-lucide="shopping-bag" class="w-4 h-4"></i>
       </a>
+
     </div>
   </nav>
 
   <!-- ─── Hero ──────────────────────────────────────────────── -->
-  <section class="max-w-5xl mx-auto px-6 pt-20 pb-24">
-    <div class="flex flex-col-reverse md:flex-row items-center gap-12 md:gap-16">
+  <section class="max-w-5xl mx-auto px-6 pt-8 pb-16">
+    <div class="flex flex-col-reverse md:flex-row items-center gap-10 md:gap-14">
 
-      <!-- Product image -->
+      <!-- Gallery -->
       <div class="flex-shrink-0 reveal">
-        <img src="P.Partum4.jpg"
-             alt="פ.פארטום — תרסיס טבעי לאחר לידה, קופסה ובקבוק"
-             class="w-60 md:w-72 rounded-2xl object-contain mx-auto" />
+        <!-- Main image -->
+        <div class="w-64 md:w-72 h-72 md:h-80 rounded-2xl overflow-hidden bg-brand-50 flex items-center justify-center">
+          <img id="mainImg"
+               src="P.Partum5.jpg"
+               alt="פ.פארטום תרסיס לאחר לידה"
+               class="w-full h-full object-contain p-3" />
+        </div>
+
+        <!-- Thumbnails -->
+        <div class="flex gap-2 mt-3 justify-center">
+          <button onclick="switchImg('P.Partum5.jpg', this)"
+                  class="thumb-btn active w-14 h-14 rounded-xl overflow-hidden bg-brand-50 border border-brand-200 hover:border-brand-400 transition-all focus:outline-none">
+            <img src="P.Partum5.jpg" alt="" class="w-full h-full object-contain p-1" />
+          </button>
+          <button onclick="switchImg('P.Partum4.jpg', this)"
+                  class="thumb-btn w-14 h-14 rounded-xl overflow-hidden bg-brand-50 border border-brand-200 hover:border-brand-400 transition-all focus:outline-none">
+            <img src="P.Partum4.jpg" alt="" class="w-full h-full object-contain p-1" />
+          </button>
+          <button onclick="switchImg('P.Partum1.jpg', this)"
+                  class="thumb-btn w-14 h-14 rounded-xl overflow-hidden bg-brand-50 border border-brand-200 hover:border-brand-400 transition-all focus:outline-none">
+            <img src="P.Partum1.jpg" alt="" class="w-full h-full object-contain p-1" />
+          </button>
+          <button onclick="switchImg('P.Partum3.jpg', this)"
+                  class="thumb-btn w-14 h-14 rounded-xl overflow-hidden bg-brand-50 border border-brand-200 hover:border-brand-400 transition-all focus:outline-none">
+            <img src="P.Partum3.jpg" alt="" class="w-full h-full object-contain p-1" />
+          </button>
+        </div>
       </div>
 
       <!-- Text -->
       <div class="flex-1 text-right reveal delay-1">
-        <div class="inline-flex items-center gap-1.5 text-stone-600 text-sm font-medium mb-5">
+        <div class="inline-flex items-center gap-1.5 text-brand-500 text-sm font-medium mb-4">
           <i data-lucide="leaf" class="w-4 h-4"></i>
           <span>100% טבעי · 15 מ"ל תרסיס</span>
         </div>
@@ -82,49 +165,49 @@
           וכן במקרים של קרעים ותפרים.
         </p>
 
-        <a href="https://www.vitality-israel.co.il/product-page/%D7%A4%D7%A4%D7%90%D7%A8%D7%98%D7%95%D7%9D-%D7%A4%D7%A4%D7%A8%D7%99%D7%99-%D7%9C%D7%90%D7%97%D7%A8-%D7%9C%D7%99%D7%93%D7%94"
+        <a href="https://www.vitality-israel.co.il/product-page/%D7%A4%D7%A4%D7%90%D7%A8%D7%98%D7%95%D7%9D-%D7%A1%D7%A4%D7%A8%D7%99%D7%99-%D7%9C%D7%90%D7%97%D7%A8-%D7%9C%D7%99%D7%93%D7%94"
            target="_blank"
-           class="inline-flex items-center gap-2 bg-stone-800 text-white font-semibold px-8 py-4 rounded-2xl hover:bg-stone-700 transition-all hover:-translate-y-0.5 text-base shadow-sm">
+           class="inline-flex items-center gap-2 bg-brand-600 text-white font-semibold px-8 py-4 rounded-2xl hover:bg-brand-700 transition-all hover:-translate-y-0.5 text-base shadow-sm">
           לחצי כאן לקניה
           <i data-lucide="arrow-left" class="w-5 h-5"></i>
         </a>
 
-        <p class="text-sm text-gray-400 mt-4">הגנה · הרגעה · לחות</p>
+        <p class="text-sm text-brand-400 mt-4">הגנה · הרגעה · לחות</p>
       </div>
 
     </div>
   </section>
 
-  <div class="max-w-5xl mx-auto px-6"><div class="border-t border-gray-100"></div></div>
+  <div class="max-w-5xl mx-auto px-6"><div class="border-t border-brand-100"></div></div>
 
   <!-- ─── How it works ──────────────────────────────────────── -->
   <section class="max-w-5xl mx-auto px-6 py-20">
     <div class="text-center mb-14 reveal">
-      <p class="text-stone-500 text-sm font-medium uppercase tracking-widest mb-3">מנגנון הפעולה</p>
+      <p class="text-brand-400 text-sm font-medium uppercase tracking-widest mb-3">מנגנון הפעולה</p>
       <h2 class="text-3xl font-bold text-gray-900">איך פ.פארטום עובד?</h2>
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
 
-      <div class="bg-gray-50 rounded-2xl p-8 text-right reveal delay-1 hover:bg-stone-50 transition-colors">
-        <div class="w-11 h-11 bg-white border border-stone-200 rounded-xl flex items-center justify-center mb-5 shadow-sm">
-          <i data-lucide="shield" class="w-5 h-5 text-stone-700"></i>
+      <div class="bg-brand-50 rounded-2xl p-8 text-right reveal delay-1 hover:bg-brand-100 transition-colors">
+        <div class="w-11 h-11 bg-white border border-brand-200 rounded-xl flex items-center justify-center mb-5 shadow-sm">
+          <i data-lucide="shield" class="w-5 h-5 text-brand-600"></i>
         </div>
         <h3 class="font-semibold text-gray-900 text-lg mb-2">מחסום הגנה</h3>
         <p class="text-gray-500 text-sm leading-relaxed">יוצר מחסום פיזי מפני מזהמים ומגן על האיזור הרגיש בשלבי ההחלמה הראשונים.</p>
       </div>
 
-      <div class="bg-gray-50 rounded-2xl p-8 text-right reveal delay-2 hover:bg-stone-50 transition-colors">
-        <div class="w-11 h-11 bg-white border border-stone-200 rounded-xl flex items-center justify-center mb-5 shadow-sm">
-          <i data-lucide="heart" class="w-5 h-5 text-stone-700"></i>
+      <div class="bg-brand-50 rounded-2xl p-8 text-right reveal delay-2 hover:bg-brand-100 transition-colors">
+        <div class="w-11 h-11 bg-white border border-brand-200 rounded-xl flex items-center justify-center mb-5 shadow-sm">
+          <i data-lucide="heart" class="w-5 h-5 text-brand-600"></i>
         </div>
         <h3 class="font-semibold text-gray-900 text-lg mb-2">מרגיע את האיזור</h3>
         <p class="text-gray-500 text-sm leading-relaxed">מרכיבים טבעיים פועלים להרגעת העור ולהפחתת אי-נוחות ביום-יום.</p>
       </div>
 
-      <div class="bg-gray-50 rounded-2xl p-8 text-right reveal delay-3 hover:bg-stone-50 transition-colors">
-        <div class="w-11 h-11 bg-white border border-stone-200 rounded-xl flex items-center justify-center mb-5 shadow-sm">
-          <i data-lucide="zap" class="w-5 h-5 text-stone-700"></i>
+      <div class="bg-brand-50 rounded-2xl p-8 text-right reveal delay-3 hover:bg-brand-100 transition-colors">
+        <div class="w-11 h-11 bg-white border border-brand-200 rounded-xl flex items-center justify-center mb-5 shadow-sm">
+          <i data-lucide="zap" class="w-5 h-5 text-brand-600"></i>
         </div>
         <h3 class="font-semibold text-gray-900 text-lg mb-2">מזרז ריפוי</h3>
         <p class="text-gray-500 text-sm leading-relaxed">תומך בתהליכי ריפוי הטבעיים של הגוף לאחר לידה, קרעים ותפרים.</p>
@@ -133,70 +216,82 @@
     </div>
   </section>
 
-  <div class="max-w-5xl mx-auto px-6"><div class="border-t border-gray-100"></div></div>
+  <div class="max-w-5xl mx-auto px-6"><div class="border-t border-brand-100"></div></div>
 
   <!-- ─── Benefits ─────────────────────────────────────────── -->
   <section class="max-w-5xl mx-auto px-6 py-20">
     <div class="text-center mb-4 reveal">
-      <p class="text-stone-500 text-sm font-medium uppercase tracking-widest mb-3">יתרונות</p>
+      <p class="text-brand-400 text-sm font-medium uppercase tracking-widest mb-3">יתרונות</p>
       <h2 class="text-3xl font-bold text-gray-900 mb-3">תרסיס טבעי אחד — שלושה יתרונות חיוניים</h2>
       <p class="text-gray-500 text-base">כל מה שצריכה אחרי לידה, בבקבוק אחד קטן.</p>
     </div>
 
     <div class="mt-12 grid grid-cols-1 md:grid-cols-3 gap-5">
 
-      <div class="border border-gray-200 rounded-2xl p-8 text-right reveal delay-1 hover:border-stone-300 hover:shadow-sm transition-all">
+      <div class="border border-brand-200 rounded-2xl p-8 text-right reveal delay-1 hover:border-brand-400 hover:shadow-sm transition-all">
         <div class="mb-5">
-          <i data-lucide="shield-check" class="w-8 h-8 text-stone-600"></i>
+          <i data-lucide="brain" class="w-8 h-8 text-brand-500"></i>
         </div>
-        <h3 class="text-lg font-semibold text-gray-900 mb-2">הגנה</h3>
-        <p class="text-gray-500 text-sm leading-relaxed">מחסום פיזי מפני זיהומים — הגנה רציפה בשלבי ההחלמה הרגישים.</p>
+        <h3 class="text-lg font-semibold text-gray-900 mb-2">ראש שקט</h3>
+        <p class="text-gray-500 text-sm leading-relaxed">מאפשר לך להחלים בראש שקט ולהיות זמינה לאתגרים החדשים שמחכים לך.</p>
       </div>
 
-      <div class="border border-gray-200 rounded-2xl p-8 text-right reveal delay-2 hover:border-stone-300 hover:shadow-sm transition-all">
+      <div class="border border-brand-200 rounded-2xl p-8 text-right reveal delay-2 hover:border-brand-400 hover:shadow-sm transition-all">
         <div class="mb-5">
-          <i data-lucide="wind" class="w-8 h-8 text-stone-600"></i>
+          <i data-lucide="heart-handshake" class="w-8 h-8 text-brand-500"></i>
         </div>
-        <h3 class="text-lg font-semibold text-gray-900 mb-2">הרגעה</h3>
-        <p class="text-gray-500 text-sm leading-relaxed">הקלה מיידית על כאבים וחוסר נוחות, מהרגע הראשון שאחרי הלידה.</p>
+        <h3 class="text-lg font-semibold text-gray-900 mb-2">הפחתת כאבים</h3>
+        <p class="text-gray-500 text-sm leading-relaxed">מפחית כאבים וחוסר נוחות ומסייע לתהליך הריפוי הטבעי של הגוף.</p>
       </div>
 
-      <div class="border border-gray-200 rounded-2xl p-8 text-right reveal delay-3 hover:border-stone-300 hover:shadow-sm transition-all">
+      <div class="border border-brand-200 rounded-2xl p-8 text-right reveal delay-3 hover:border-brand-400 hover:shadow-sm transition-all">
         <div class="mb-5">
-          <i data-lucide="droplets" class="w-8 h-8 text-stone-600"></i>
+          <i data-lucide="timer-reset" class="w-8 h-8 text-brand-500"></i>
         </div>
-        <h3 class="text-lg font-semibold text-gray-900 mb-2">לחות</h3>
-        <p class="text-gray-500 text-sm leading-relaxed">הידרציה מיטבית לשיקום הרקמה ולהאצת תהליך הריפוי הטבעי.</p>
+        <h3 class="text-lg font-semibold text-gray-900 mb-2">חזרה מהירה לשגרה</h3>
+        <p class="text-gray-500 text-sm leading-relaxed">מזרז את החזרה שלך לשגרה — כי חיים מחכים לך.</p>
       </div>
 
     </div>
 
+    <!-- Trust badges -->
+    <div class="mt-8 grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div class="flex items-center gap-3 bg-brand-50 border border-brand-200 rounded-2xl px-6 py-4 text-right reveal delay-1">
+        <i data-lucide="badge-check" class="w-6 h-6 text-brand-600 flex-shrink-0"></i>
+        <p class="text-sm text-gray-700 font-medium">באישור משרד הבריאות (אמ"ר)</p>
+      </div>
+      <div class="flex items-center gap-3 bg-brand-50 border border-brand-200 rounded-2xl px-6 py-4 text-right reveal delay-2">
+        <i data-lucide="hospital" class="w-6 h-6 text-brand-600 flex-shrink-0"></i>
+        <p class="text-sm text-gray-700 font-medium">בשימוש בית החולים הילל יפה ולנאידו</p>
+      </div>
+    </div>
+
     <!-- Bag tagline + CTA -->
     <div class="mt-14 flex flex-col items-center gap-6 reveal">
-      <div class="inline-flex items-center gap-2.5 bg-stone-50 border border-stone-200 rounded-2xl px-6 py-3.5 text-stone-700 font-medium text-base">
+      <div class="inline-flex items-center gap-2.5 bg-brand-50 border border-brand-200 rounded-2xl px-6 py-3.5 text-brand-700 font-medium text-base">
         <i data-lucide="package" class="w-5 h-5"></i>
         דאגי שהוא יהיה בתיק הלידה שלך!
       </div>
-      <a href="https://www.vitality-israel.co.il/product-page/%D7%A4%D7%A4%D7%90%D7%A8%D7%98%D7%95%D7%9D-%D7%A4%D7%A4%D7%A8%D7%99%D7%99-%D7%9C%D7%90%D7%97%D7%A8-%D7%9C%D7%99%D7%93%D7%94"
+      <a href="https://www.vitality-israel.co.il/product-page/%D7%A4%D7%A4%D7%90%D7%A8%D7%98%D7%95%D7%9D-%D7%A1%D7%A4%D7%A8%D7%99%D7%99-%D7%9C%D7%90%D7%97%D7%A8-%D7%9C%D7%99%D7%93%D7%94"
          target="_blank"
-         class="inline-flex items-center gap-2 bg-stone-800 text-white font-semibold px-8 py-4 rounded-2xl hover:bg-stone-700 transition-all hover:-translate-y-0.5 text-base shadow-sm">
+         class="inline-flex items-center gap-2 bg-brand-600 text-white font-semibold px-8 py-4 rounded-2xl hover:bg-brand-700 transition-all hover:-translate-y-0.5 text-base shadow-sm">
         לחצי כאן לקניה
         <i data-lucide="arrow-left" class="w-5 h-5"></i>
       </a>
     </div>
   </section>
 
-  <div class="max-w-5xl mx-auto px-6"><div class="border-t border-gray-100"></div></div>
+  <div class="max-w-5xl mx-auto px-6"><div class="border-t border-brand-100"></div></div>
 
   <!-- ─── Video / Testimonials ──────────────────────────────── -->
   <section class="max-w-5xl mx-auto px-6 py-20">
     <div class="text-center mb-10 reveal">
-      <p class="text-stone-500 text-sm font-medium uppercase tracking-widest mb-3">עדויות</p>
+      <p class="text-brand-400 text-sm font-medium uppercase tracking-widest mb-3">עדויות</p>
       <h2 class="text-3xl font-bold text-gray-900">ראי בעצמך</h2>
     </div>
 
     <div class="reveal">
-      <div class="max-w-2xl mx-auto rounded-2xl overflow-hidden border border-gray-200 shadow-sm">
+      <div class="max-w-2xl mx-auto rounded-2xl overflow-hidden border border-brand-200 shadow-sm">
         <video
           controls
           preload="metadata"
@@ -208,32 +303,200 @@
     </div>
   </section>
 
-  <div class="max-w-5xl mx-auto px-6"><div class="border-t border-gray-100"></div></div>
+  <div class="max-w-5xl mx-auto px-6"><div class="border-t border-brand-100"></div></div>
+
+  <!-- ─── FAQ ──────────────────────────────────────────────── -->
+  <section class="max-w-5xl mx-auto px-6 py-20">
+    <div class="text-center mb-12 reveal">
+      <p class="text-brand-400 text-sm font-medium uppercase tracking-widest mb-3">שאלות נפוצות</p>
+      <h2 class="text-3xl font-bold text-gray-900">כל מה שרצית לדעת</h2>
+    </div>
+
+    <div class="max-w-2xl mx-auto space-y-3">
+
+      <!-- Q1 -->
+      <div class="border border-brand-100 rounded-2xl overflow-hidden reveal delay-1">
+        <button onclick="toggleFaq(this)"
+                class="faq-btn w-full flex items-center justify-between gap-4 px-6 py-5 text-right text-gray-900 font-semibold text-base hover:bg-brand-50 transition-colors">
+          <span>איך משתמשים בפ.פארטום?</span>
+          <i data-lucide="chevron-down" class="faq-icon w-5 h-5 text-brand-400"></i>
+        </button>
+        <div class="faq-panel">
+          <div class="px-6 pb-6 text-gray-500 text-sm leading-relaxed space-y-2 text-right">
+            <p>פשוט ונוח — יש להתיז על האזור <strong class="text-gray-700">פעמיים ביום</strong> (כ-3 לחיצות בכל פעם) למשך כ-7 ימים.</p>
+            <p>יש לבצע את ההתזה ממרחק של כ-10 ס"מ מהאזור.</p>
+            <p>לאחר השימוש מומלץ להשאיר את האזור מאוורר למשך כ-2 דקות. במידת הצורך ניתן לשים פד לאחר מכן.</p>
+            <p class="text-brand-500 font-medium">יש לעיין בעלון לצרכן לפני השימוש.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Q2 -->
+      <div class="border border-brand-100 rounded-2xl overflow-hidden reveal delay-2">
+        <button onclick="toggleFaq(this)"
+                class="faq-btn w-full flex items-center justify-between gap-4 px-6 py-5 text-right text-gray-900 font-semibold text-base hover:bg-brand-50 transition-colors">
+          <span>היכן ניתן לרכוש את פ.פארטום?</span>
+          <i data-lucide="chevron-down" class="faq-icon w-5 h-5 text-brand-400"></i>
+        </button>
+        <div class="faq-panel">
+          <div class="px-6 pb-6 text-gray-500 text-sm leading-relaxed space-y-2 text-right">
+            <p>ניתן להשיג ב<strong class="text-gray-700">רשת סופר-פארם</strong>, בבתי מרקחת פרטיים, וב<a href="https://www.vitality-israel.co.il/product-page/%D7%A4%D7%A4%D7%90%D7%A8%D7%98%D7%95%D7%9D-%D7%A1%D7%A4%D7%A8%D7%99%D7%99-%D7%9C%D7%90%D7%97%D7%A8-%D7%9C%D7%99%D7%93%D7%94" target="_blank" class="text-brand-600 hover:underline font-medium">רכישה אונליין מאתר ויטליטי</a>.</p>
+            <p class="text-gray-400 text-xs">ברקוד: 7290008905992 &nbsp;·&nbsp; מופץ על ידי דיפריס</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Q3 -->
+      <div class="border border-brand-100 rounded-2xl overflow-hidden reveal delay-3">
+        <button onclick="toggleFaq(this)"
+                class="faq-btn w-full flex items-center justify-between gap-4 px-6 py-5 text-right text-gray-900 font-semibold text-base hover:bg-brand-50 transition-colors">
+          <span>מה מכיל פ.פארטום?</span>
+          <i data-lucide="chevron-down" class="faq-icon w-5 h-5 text-brand-400"></i>
+        </button>
+        <div class="faq-panel">
+          <div class="px-6 pb-6 text-gray-500 text-sm leading-relaxed text-right space-y-3">
+            <p>פ.פארטום מכיל רכיבים צמחיים היוצרים שכבת הגנה המסייעת בזירוז ריפוי וכן מרגיעים את האזור.</p>
+            <p class="text-xs text-gray-400 leading-relaxed font-mono">
+              Deionized Water · Refined Glycerin · Aloe Barbadensis Leaf Water · Golden Seal · Zinc Oxide · Symphytum Officinale Leaf Extract · Croton Lechleri · Cinnamomum Camphora Wood Oil · Chamomilla Recutita (Matricaria) Flower Extract · Myrtel Oil · Cupressus Sempervirens · Quercus Alba Extract (White Oak) · Potassium Sorbate · Sodium Benzoate
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Q4 -->
+      <div class="border border-brand-100 rounded-2xl overflow-hidden reveal delay-1">
+        <button onclick="toggleFaq(this)"
+                class="faq-btn w-full flex items-center justify-between gap-4 px-6 py-5 text-right text-gray-900 font-semibold text-base hover:bg-brand-50 transition-colors">
+          <span>האם המוצר שורף?</span>
+          <i data-lucide="chevron-down" class="faq-icon w-5 h-5 text-brand-400"></i>
+        </button>
+        <div class="faq-panel">
+          <div class="px-6 pb-6 text-gray-500 text-sm leading-relaxed text-right">
+            <p>המוצר מכיל צמחים המסייעים בריפוי ובהרגעת האזור ולכן לא אמור לגרום לשריפה. יחד עם זאת, מכיוון שמדובר באזור רגיש, יתכן שבמצבים מסוימים תורגש רגישות קלה לאחר השימוש.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Q5 -->
+      <div class="border border-brand-100 rounded-2xl overflow-hidden reveal delay-2">
+        <button onclick="toggleFaq(this)"
+                class="faq-btn w-full flex items-center justify-between gap-4 px-6 py-5 text-right text-gray-900 font-semibold text-base hover:bg-brand-50 transition-colors">
+          <span>כמה זמן ניתן להשתמש בפ.פארטום לאחר פתיחה?</span>
+          <i data-lucide="chevron-down" class="faq-icon w-5 h-5 text-brand-400"></i>
+        </button>
+        <div class="faq-panel">
+          <div class="px-6 pb-6 text-gray-500 text-sm leading-relaxed text-right">
+            <p>ניתן להשתמש במוצר כל עוד הוא בתוקף — ללא קשר למועד הפתיחה.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Q6 -->
+      <div class="border border-brand-100 rounded-2xl overflow-hidden reveal delay-3">
+        <button onclick="toggleFaq(this)"
+                class="faq-btn w-full flex items-center justify-between gap-4 px-6 py-5 text-right text-gray-900 font-semibold text-base hover:bg-brand-50 transition-colors">
+          <span>האם המוצר טבעי?</span>
+          <i data-lucide="chevron-down" class="faq-icon w-5 h-5 text-brand-400"></i>
+        </button>
+        <div class="faq-panel">
+          <div class="px-6 pb-6 text-gray-500 text-sm leading-relaxed text-right">
+            <p>כן. כלל הרכיבים הפעילים של פ.פארטום הם על <strong class="text-gray-700">בסיס טבעי</strong> והמוצר מוגדר כ-<strong class="text-gray-700">Vegan Friendly</strong>.</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="max-w-5xl mx-auto px-6"><div class="border-t border-brand-100"></div></div>
 
   <!-- ─── Footer ────────────────────────────────────────────── -->
-  <footer class="max-w-5xl mx-auto px-6 py-10 text-center space-y-2">
-    <p class="text-xs text-gray-400 leading-relaxed">
-      מספר אישור בפנקס אמ"ר (אביזרים רפואיים): 14560418 &nbsp;·&nbsp; יש לעיין בעלון לצרכן לפני השימוש.
-    </p>
-    <p class="text-xs text-gray-300">© 2025 ויטליטי ישראל · כל הזכויות שמורות</p>
+  <footer class="bg-gray-50 border-t border-brand-100 mt-4">
+    <div class="max-w-5xl mx-auto px-6 py-10">
+
+      <!-- Top row: manufacturer + customer service -->
+      <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 text-right mb-8">
+
+        <!-- Manufacturer -->
+        <div class="flex items-start gap-3">
+          <i data-lucide="factory" class="w-5 h-5 text-brand-400 flex-shrink-0 mt-0.5"></i>
+          <div>
+            <p class="text-sm font-medium text-gray-700">יצרן ובעל הרישום</p>
+            <p class="text-sm text-gray-500 mt-0.5">מוצרי מיניפק בע"מ, רח' ברקת, קדימה צורן</p>
+          </div>
+        </div>
+
+        <!-- Customer service -->
+        <div class="flex items-start gap-3">
+          <i data-lucide="phone" class="w-5 h-5 text-brand-400 flex-shrink-0 mt-0.5"></i>
+          <div>
+            <p class="text-sm font-medium text-gray-700">שירות לקוחות ויטליטי</p>
+            <a href="tel:1800282444" class="text-sm text-brand-600 hover:text-brand-700 transition-colors font-medium mt-0.5 block">
+              1800-282-444
+            </a>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Divider -->
+      <div class="border-t border-gray-200 mb-6"></div>
+
+      <!-- Legal -->
+      <div class="text-center space-y-1.5">
+        <p class="text-xs text-gray-400 leading-relaxed">
+          מספר אישור בפנקס אמ"ר (אביזרים רפואיים): 14560418 &nbsp;·&nbsp; יש לעיין בעלון לצרכן לפני השימוש.
+        </p>
+        <p class="text-xs text-gray-300">© 2025 ויטליטי ישראל · כל הזכויות שמורות</p>
+      </div>
+
+    </div>
   </footer>
 
   <!-- ─── Scripts ───────────────────────────────────────────── -->
   <script>
     lucide.createIcons();
 
+    // Scroll reveal
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
-          }
+          if (entry.isIntersecting) entry.target.classList.add('visible');
         });
       },
       { threshold: 0.08, rootMargin: '0px 0px -40px 0px' }
     );
-
     document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
+
+    // FAQ accordion
+    function toggleFaq(btn) {
+      const panel = btn.nextElementSibling;
+      const isOpen = btn.classList.contains('open');
+
+      // Close all
+      document.querySelectorAll('.faq-btn').forEach(b => {
+        b.classList.remove('open');
+        b.nextElementSibling.style.maxHeight = '0px';
+      });
+
+      // Open clicked if it was closed
+      if (!isOpen) {
+        btn.classList.add('open');
+        panel.style.maxHeight = panel.scrollHeight + 'px';
+      }
+    }
+
+    // Gallery switcher
+    function switchImg(src, btn) {
+      const img = document.getElementById('mainImg');
+      img.classList.add('fade');
+      setTimeout(() => {
+        img.src = src;
+        img.classList.remove('fade');
+      }, 200);
+      document.querySelectorAll('.thumb-btn').forEach(t => t.classList.remove('active'));
+      btn.classList.add('active');
+    }
   </script>
 
 </body>
